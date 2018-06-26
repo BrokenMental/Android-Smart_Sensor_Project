@@ -8,9 +8,11 @@
     tools:context=".WalkingViewer">
 
     <TextView
-        android:id="@+id/walkCount"
-        android:layout_width="263dp"
+        android:id="@+id/walkCount_walking"
+        android:layout_width="116dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/txtview1"
         android:gravity="center"
         android:text="0"
         android:textSize="25sp"
@@ -18,6 +20,25 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtview1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="현재"
+        android:textSize="18sp"
+        android:layout_marginTop="6dp" />
+
+    <TextView
+        android:id="@+id/txtview2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/walkCount_walking"
+        android:text="걸음 걸으셨습니다."
+        android:textSize="18sp"
+        android:layout_marginTop="6dp" />
 
     <Button
         android:id="@+id/button2"
@@ -30,7 +51,7 @@
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart"
         android:layout_width="match_parent"
-        android:layout_height="610dp"
+        android:layout_height="600dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="10dp" />

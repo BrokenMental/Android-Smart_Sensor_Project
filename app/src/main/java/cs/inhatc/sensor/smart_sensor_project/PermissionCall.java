@@ -8,10 +8,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 /* 위치 권한 얻는 코드 */
-public class permissionCall extends AppCompatActivity {
+public class PermissionCall extends AppCompatActivity {
 
     private final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1;
-    public permissionCall(Context context){
+    public PermissionCall(Context context){
         // Assume thisActivity is the current activity
         int permissionCheckFL = ContextCompat.checkSelfPermission(context,
                 Manifest.permission.ACCESS_FINE_LOCATION);

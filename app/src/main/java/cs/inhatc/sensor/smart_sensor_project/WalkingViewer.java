@@ -2,7 +2,6 @@ package cs.inhatc.sensor.smart_sensor_project;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -13,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
@@ -35,53 +33,65 @@ import static android.hardware.Sensor.TYPE_ACCELEROMETER;
 
 public class WalkingViewer extends AppCompatActivity implements SensorEventListener{
 
-    private long lastTime;
-    private float speed;
-    private float lastX;
-    private float lastY;
-    private float lastZ;
+    private SensorManager objSMG;
+    private Sensor sensor_Accelerometer;
+
+    private WalkData walkD;
 
     private BarChart barChart;
     private int chartLine;
+    private int num;
+
+    private TextView walkCount_walking;
 
     //그래프 그리기 위한 ArrayList
     ArrayList<BarEntry> entries = new ArrayList<>();
     ArrayList<String> labels = new ArrayList<String>();
 
-    //가속도 센서 Delay
-    private static final int SHAKE_THRESHOLD = 800;
-
-    WalkData walkData;
-    SQLiteDatabase sql;
-
-    TextView walkCount;
-
     Button btnBack;
+    Cursor cursor;
 
-    int moveCount;
+    /*private long lastTime;
+    private float speed;
+    private float lastX;
+    private float lastY;
+    private float lastZ;*/
+
+    //가속도 센서 Delay
+    /*private static final int SHAKE_THRESHOLD = 800;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_walking);
 
-        walkCount = (TextView)findViewById(R.id.walkCount);
-        barChart = (BarChart)findViewById(R.id.chart);
-
-        walkData = new WalkData(this);
+        barChart = findViewById(R.id.chart);
         btnBack = findViewById(R.id.button2);
-
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                intentStartContext();
                 WalkingViewer.this.finish();
             }
         });
 
-        sql = walkData.getWritableDatabase();
+        walkCount_walking = findViewById(R.id.walkCount_walking);
+        walkD = new WalkData(this);
 
-        Cursor cursor;
-        cursor = sql.rawQuery("SELECT * FROM WalkHistory ORDER BY WalkHistory._id DESC Limit 7;", null);
+        objSMG = (SensorManager)getSystemService(SENSOR_SERVICE);
+        sensor_Accelerometer = objSMG.getDefaultSensor(TYPE_ACCELEROMETER);
+
+        cursor = walkD.selectWData(7);
+        selectData();
+        chartSet();
+    }
+
+    private void intentStartContext(){
+        Intent intent = new Intent(WalkingViewer.this, KakaoMapViewer.class);
+        startActivity(intent);
+    }
+
+    private void selectData(){
 
         while (cursor.moveToNext())
         {
@@ -89,16 +99,16 @@ public class WalkingViewer extends AppCompatActivity implements SensorEventListe
             labels.add(cursor.getString(2));
             chartLine++;
 
-            if(KakaoMapViewer.getDate().matches(cursor.getString(2)))
+            if(WalkData.getDate().matches(cursor.getString(2)))
             {
-                walkCount.setText(cursor.getString(1));
-                moveCount = Integer.parseInt(cursor.getString(1));
+                walkCount_walking.setText(cursor.getString(1));
+                num = Integer.parseInt(cursor.getString(1));
             }
         }
+        walkD.closeData();
+    }
 
-        cursor.close();
-        sql.close();
-
+    private void chartSet(){
         BarDataSet barDataSet = new BarDataSet(entries, null);
         barDataSet.setDrawValues(false);
         barDataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
@@ -128,7 +138,6 @@ public class WalkingViewer extends AppCompatActivity implements SensorEventListe
         yRAxis.setDrawAxisLine(false);
         yRAxis.setDrawGridLines(false);
 
-
         Description description = new Description();
         description.setText("");
 
@@ -142,21 +151,23 @@ public class WalkingViewer extends AppCompatActivity implements SensorEventListe
     }
 
     @Override
-    protected void onDestroy() {
-        SimpleDateFormat fm1 = new SimpleDateFormat("yyyy-MM-dd",Locale.KOREA);
-        String date = fm1.format(new Date());
-        sql = walkData.getWritableDatabase();
-        sql.execSQL("INSERT INTO WalkHistory SELECT NULL,0,'"+date+"' WHERE NOT EXISTS(SELECT WalkHistory.Testdate FROM WalkHistory WHERE WalkHistory.Testdate='"+date+"');");
+    protected void onResume() {
+        super.onResume();
 
-        sql.execSQL("UPDATE WalkHistory SET walk_cnt="+Integer.parseInt(""+walkCount.getText())+" WHERE WalkHistory.Testdate='"+date+"';");
-
-        sql.close();
-        super.onDestroy();
+        objSMG.registerListener(this, sensor_Accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == TYPE_ACCELEROMETER)
+        if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+            if(event.values[0] > 8){
+                walkCount_walking.setText(String.valueOf(num++));
+            }
+        }
+        walkD.insertAupdateWData(walkCount_walking);
+        walkD.closeData();
+
+        /*if (event.sensor.getType() == TYPE_ACCELEROMETER)
         {
             long currentTime = System.currentTimeMillis();
             long gabOfTime = (currentTime - lastTime);
@@ -174,7 +185,13 @@ public class WalkingViewer extends AppCompatActivity implements SensorEventListe
                 lastY = event.values[1];
                 lastZ = event.values[2];
             }
-        }
+        }*/
+    }
+
+    @Override
+    public void onBackPressed() {
+        intentStartContext();
+        WalkingViewer.this.finish();
     }
 
     @Override
