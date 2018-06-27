@@ -25,6 +25,8 @@
         </activity>
         <activity android:name=".WalkingViewer">
         </activity>
+        <activity android:name=".SearchViewer">
+        </activity>
     </application>
 
     <meta-data

@@ -9,9 +9,10 @@
 
     <TextView
         android:id="@+id/walkCount_walking"
-        android:layout_width="116dp"
+        android:layout_width="113dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="3dp"
         android:layout_toEndOf="@+id/txtview1"
         android:gravity="center"
         android:text="0"
@@ -26,22 +27,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:text="현재"
-        android:textSize="18sp"
-        android:layout_marginTop="6dp" />
+        android:layout_alignTop="@+id/txtview2"
+        android:layout_marginStart="21dp"
+        android:text="오늘"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/txtview2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
         android:layout_toEndOf="@+id/walkCount_walking"
-        android:text="걸음 걸으셨습니다."
-        android:textSize="18sp"
-        android:layout_marginTop="6dp" />
+        android:text="걸음 걸었습니다."
+        android:textSize="18sp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnReturn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/map_view"
+        android:id="@+id/map_View"
         android:layout_width="match_parent"
         android:layout_height="356dp"
         android:layout_alignParentStart="true"
@@ -14,45 +14,45 @@
         android:id="@+id/walkCount_main"
         android:layout_width="104dp"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnmove"
+        android:layout_alignBaseline="@+id/btnMove"
         android:layout_marginEnd="12dp"
-        android:layout_toStartOf="@+id/txtview5"
+        android:layout_toStartOf="@+id/txtView3"
         android:gravity="center"
         android:text="0"
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/txtview1"
+        android:id="@+id/txtView1"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/walkCount_main"
         android:layout_toStartOf="@+id/walkCount_main"
-        android:text="현재"
+        android:text="오늘"
         android:textAlignment="textEnd"
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/txtview2"
+        android:id="@+id/txtView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/walkCount_main"
         android:layout_marginStart="-12dp"
         android:layout_toEndOf="@+id/walkCount_main"
-        android:text="걸음 걸으셨습니다."
+        android:text="걸음 걸었습니다."
         android:textSize="18sp" />
 
     <Button
-        android:id="@+id/btnmove"
+        android:id="@+id/btnMove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/txtfinish"
+        android:layout_alignStart="@+id/txtFinish"
         android:layout_marginBottom="33dp"
         android:text="상세보기" />
 
 
     <TextView
-        android:id="@+id/txtview5"
+        android:id="@+id/txtView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -63,7 +63,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/txtnow"
+        android:id="@+id/txtNow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -74,51 +74,51 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/txtview6"
+        android:id="@+id/txtView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/txtview5"
+        android:layout_alignTop="@+id/txtView3"
         android:layout_marginStart="45dp"
         android:text="출발지"
         android:textAlignment="center"
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/txtview7"
+        android:id="@+id/txtView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/txtview5"
+        android:layout_alignTop="@+id/txtView3"
         android:layout_marginEnd="45dp"
         android:text="도착지"
         android:textAlignment="center"
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/txtstart"
+        android:id="@+id/txtStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/txtnow"
+        android:layout_alignTop="@+id/txtNow"
         android:layout_marginStart="30dp"
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/txtfinish"
+        android:id="@+id/txtFinish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/txtnow"
+        android:layout_alignTop="@+id/txtNow"
         android:layout_marginEnd="30dp"
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="18sp" />
 
     <View
-        android:id="@+id/divider"
+        android:id="@+id/divider1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_alignParentBottom="true"
@@ -136,83 +136,91 @@
         android:background="?android:attr/listDivider" />
 
     <EditText
-        android:id="@+id/edtstart"
-        android:layout_width="248dp"
+        android:id="@+id/edtStart"
+        android:layout_width="257dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/edtfinish"
-        android:layout_alignStart="@+id/txtstart"
+        android:layout_above="@+id/edtFinish"
+        android:layout_alignStart="@+id/txtView1"
+        android:layout_marginStart="12dp"
         android:ems="10"
+        android:focusableInTouchMode="false"
         android:hint="출발위치 입력"
         android:inputType="textPersonName"
         android:textSize="18sp" />
 
     <EditText
-        android:id="@+id/edtfinish"
-        android:layout_width="248dp"
+        android:id="@+id/edtFinish"
+        android:layout_width="257dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/txtstart"
-        android:layout_marginBottom="202dp"
+        android:layout_alignStart="@+id/txtView1"
+        android:layout_marginBottom="203dp"
+        android:layout_marginStart="12dp"
         android:ems="10"
+        android:focusableInTouchMode="false"
         android:hint="도착위치 입력"
         android:inputType="textPersonName"
         android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/btnok"
-        android:layout_width="60sp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/edtfinish"
-        android:layout_alignEnd="@+id/btnmove"
-        android:text="확인" />
-
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/tetView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnmove"
+        android:layout_below="@+id/btnMove"
         android:layout_marginTop="-33dp"
-        android:layout_toStartOf="@+id/walkCount_yest"
+        android:layout_toStartOf="@+id/walkCountY"
         android:text="어제보다"
         android:textAlignment="textEnd"
         android:textSize="13sp" />
 
     <TextView
-        android:id="@+id/walkCount_yest"
+        android:id="@+id/walkCountY"
         android:layout_width="78dp"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/walkCount_main"
-        android:layout_below="@+id/btnmove"
+        android:layout_below="@+id/btnMove"
         android:layout_marginTop="-35dp"
         android:text="0"
         android:textAlignment="center"
         android:textSize="15sp" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/tetView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnmove"
+        android:layout_below="@+id/btnMove"
         android:layout_marginStart="-12dp"
         android:layout_marginTop="-33dp"
         android:layout_toEndOf="@+id/walkCount_main"
-        android:text="걸음 더 걸었습니다."
+        android:text="걸음"
         android:textSize="13sp" />
 
     <Button
-        android:id="@+id/btnstart_search"
-        android:layout_width="60sp"
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/edtstart"
-        android:layout_toStartOf="@+id/btnok"
+        android:layout_alignBottom="@+id/edtFinish"
+        android:layout_alignStart="@+id/btnMove"
         android:text="검색" />
 
-    <Button
-        android:id="@+id/btnsfinish_search"
-        android:layout_width="60sp"
+    <TextView
+        android:id="@+id/sumResult"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/edtfinish"
-        android:layout_toStartOf="@+id/btnok"
-        android:text="검색" />
+        android:layout_below="@+id/btnMove"
+        android:layout_marginTop="-33dp"
+        android:layout_toStartOf="@+id/txtNow"
+        android:text="더"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/txtView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnMove"
+        android:layout_marginTop="-33dp"
+        android:layout_toEndOf="@+id/txtNow"
+        android:text="걸었습니다."
+        android:textSize="13sp" />
 
 </RelativeLayout>

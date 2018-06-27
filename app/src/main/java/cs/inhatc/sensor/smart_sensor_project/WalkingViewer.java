@@ -24,10 +24,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 import static android.hardware.Sensor.TYPE_ACCELEROMETER;
 
@@ -39,8 +36,7 @@ public class WalkingViewer extends AppCompatActivity implements SensorEventListe
     private WalkData walkD;
 
     private BarChart barChart;
-    private int chartLine;
-    private int num;
+    private int chartLine, num, total;
 
     private TextView walkCount_walking;
 
@@ -48,8 +44,8 @@ public class WalkingViewer extends AppCompatActivity implements SensorEventListe
     ArrayList<BarEntry> entries = new ArrayList<>();
     ArrayList<String> labels = new ArrayList<String>();
 
-    Button btnBack;
-    Cursor cursor;
+    private Button btnReturn;
+    private Cursor cursor;
 
     /*private long lastTime;
     private float speed;
@@ -65,12 +61,17 @@ public class WalkingViewer extends AppCompatActivity implements SensorEventListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_walking);
 
+        Intent intentT = getIntent();
+        total = Integer.parseInt(intentT.getStringExtra("total"));
         barChart = findViewById(R.id.chart);
-        btnBack = findViewById(R.id.button2);
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        btnReturn = findViewById(R.id.btnReturn);
+        btnReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intentStartContext();
+                Intent intentBack = new Intent();
+                intentBack.putExtra("returnCount",walkCount_walking.getText());
+                intentBack.putExtra("totalBack",String.valueOf(total));
+                setResult(0, intentBack);
                 WalkingViewer.this.finish();
             }
         });
@@ -161,7 +162,8 @@ public class WalkingViewer extends AppCompatActivity implements SensorEventListe
     public void onSensorChanged(SensorEvent event) {
         if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
             if(event.values[0] > 8){
-                walkCount_walking.setText(String.valueOf(num++));
+                walkCount_walking.setText(String.valueOf(++num));
+                total++;
             }
         }
         walkD.insertAupdateWData(walkCount_walking);
